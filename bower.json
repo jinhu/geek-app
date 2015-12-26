@@ -3,11 +3,22 @@
   "private": true,
   "dependencies": {
     "iron-elements": "PolymerElements/iron-elements#^1.0.0",
+    "iron-localstorage": "PolymerElements/iron-localstorage#^1.0.4",
+    "iron-ajax": "PolymerElements/iron-ajax#^1.0.4",
+    "iron-image": "PolymerElements/iron-image#^1.0.4",
+    "iron-icons": "PolymerElements/iron-icons#~1.0.6",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.0.4",
+    "iron-selector": "PolymerElements/iron-selector#^1.0.5",
     "neon-elements": "PolymerElements/neon-elements#^1.0.0",
     "page": "visionmedia/page.js#~1.6.4",
     "paper-elements": "PolymerElements/paper-elements#^1.0.1",
     "platinum-elements": "PolymerElements/platinum-elements#^1.1.0",
-    "polymer": "Polymer/polymer#^1.2.0"
+    "paper-styles": "PolymerElements/paper-styles#^1.0.4",
+    "polymer": "Polymer/polymer#^1.2.3",
+    "flatiron-director": "PolymerLabs/flatiron-director#^1.0.0",
+    "todomvc-common": "^1.0.1",
+    "todomvc-app-css": "^1.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^ 0.7.20"
   },
   "devDependencies": {
     "web-component-tester": "*"
