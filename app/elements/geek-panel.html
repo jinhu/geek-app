@@ -13,7 +13,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../bower_components/paper-styles/demo-pages.html">
 <link rel="import" href="../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
-
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="geek-card.html">
 <dom-module id="geek-panel">
   <template>
     <div class="flex-1" style="margin: 3px; padding: 3px">
@@ -26,17 +27,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                      last-response="{{items}}"></iron-ajax>
 
           <template is="dom-repeat" items="[[items]]">
-            <template is="dom-if" if="{{item.item.title}}">
-              <paper-material elevation="2" class="horizontal-section">
-                <h2>[[item.item.rank]]<a href="[[item.item.link]]" target="_blank">[[item.item.title]]</a></h2>
-                <iron-image src="[[item.item.image_url]]" width="280" height="200" sizing="cover" preload fade></iron-image>
-                <p>[[item.item.description]]</p>
-                <p>by: [[item.item.author]]</p>
-                <p>Geek points: [[item.item.points ]]</p>
-                <a href="http://localhost:3000/geek_items/[[item.id]]?status=in_progress" id="next" icon="menu" >start</a>
 
-              </paper-material>
-            </template>
+            <!--<template is="dom-if" if="{{item.item.title}}">-->
+              <!--<paper-material elevation="2" class="horizontal-section">-->
+                <!--<h2>[[item.item.rank]]<a href="[[item.item.link]]" target="_blank">[[item.item.title]]</a></h2>-->
+                <!--<iron-image src="[[item.item.image_url]]" width="280" height="200" sizing="cover" preload fade></iron-image>-->
+                <!--<p>[[item.item.description]]</p>-->
+                <!--<p>by: [[item.item.author]]</p>-->
+                <!--<p>Geek points: [[item.item.points ]]</p>-->
+                <!--<paper-button raised on-click="transfer" id="{{item.id}}">{{next_status}}</paper-button>-->
+
+                <!--<a href="{{src}}/[[item.id]]?status={{next_status}}" id="next" icon="menu" >start</a>-->
+
+              <!--</paper-material>-->
+            <!--</template>-->
+            <geek-card
+              title="[[item.item.title]]"
+              id="[[item.id]]"
+              author="[[item.item.author]]"
+              src="[[item.item.image_url]]"
+              points="[[item.item.points]]"
+              next_status="{{next_status}}"
+              rank="[[item.item.rank]]"
+              on-click="{{on-click}}"
+                ></geek-card>
           </template>
       </div>
     </div>
@@ -47,35 +61,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       'use strict';
 
       Polymer({
-        is: 'geek-panel',
-//        ready: function() {
-//          this.$.ajax.url = this.src;
-//          this.$.ajax.params = {"status":this.status};
-//          this.$.ajax.generateRequest();
-//        },
-
-        properties: {
-          src: {
-            type: String,
-            value: 'http://localhost:3000/geek_items',
-            notify: true
-          },
-          title: {
-            type: String,
-            value: 'todo',
-            notify: true
-          },
-          status: {
-            type: String,
-            value: 'to_do',
-            notify: true
-          },
-          filter: {
-            type: String,
-            value: 'to_do',
-            notify: true
-          }
-        }
+        is: 'geek-panel'
       });
 
     })();

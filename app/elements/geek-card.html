@@ -13,6 +13,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../bower_components/paper-styles/demo-pages.html">
 <link rel="import" href="../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 
 <dom-module id="geek-card">
   <style>
@@ -25,6 +26,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       margin-bottom: 24px;
     }
     </style>
-  <template>
+<template>
+  <template is="dom-if" if="{{title}}">
+    <paper-material elevation="2" class="horizontal-section">
+      <h2>{{rank}} <a href="{{link}}" target="_blank">{{title}}</a></h2>
+      <iron-image src="{{src}}" width="280" height="200" sizing="cover" preload fade></iron-image>
+      <p>{{description}}</p>
+      <p>by: {{author}}</p>
+      <p>Geek points: {{points}}</p>
+      <paper-button raised on-click="{{on-click}}" id="{{id}}">{{next_status}}</paper-button>
+    </paper-material>
+  </template>
 </template>
+  <script>
+    (function() {
+      'use strict';
+      Polymer({
+
+        is: 'geek-card'
+      });
+    })();
+  </script>
+
 </dom-module>
