@@ -18,8 +18,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="geek-panel">
   <template>
     <div class="flex-1" style="margin: 3px; padding: 3px">
-      <div class="horizontal-section-container">
-        <span>{{title}}</span>
+      <div id="panel" class="horizontal-section-container">
+        <span>{{toTitle(status)}}</span>
           <iron-ajax auto
                      id="ajax"
                      url="{{src}}?status={{status}}"
@@ -27,27 +27,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                      last-response="{{items}}"></iron-ajax>
 
           <template is="dom-repeat" items="[[items]]">
-
-            <!--<template is="dom-if" if="{{item.item.title}}">-->
-              <!--<paper-material elevation="2" class="horizontal-section">-->
-                <!--<h2>[[item.item.rank]]<a href="[[item.item.link]]" target="_blank">[[item.item.title]]</a></h2>-->
-                <!--<iron-image src="[[item.item.image_url]]" width="280" height="200" sizing="cover" preload fade></iron-image>-->
-                <!--<p>[[item.item.description]]</p>-->
-                <!--<p>by: [[item.item.author]]</p>-->
-                <!--<p>Geek points: [[item.item.points ]]</p>-->
-                <!--<paper-button raised on-click="transfer" id="{{item.id}}">{{next_status}}</paper-button>-->
-
-                <!--<a href="{{src}}/[[item.id]]?status={{next_status}}" id="next" icon="menu" >start</a>-->
-
-              <!--</paper-material>-->
-            <!--</template>-->
-            <geek-card
+         <geek-card
               title="[[item.item.title]]"
               id="[[item.id]]"
               author="[[item.item.author]]"
               src="[[item.item.image_url]]"
               points="[[item.item.points]]"
-              next_status="{{next_status}}"
+              next_status="{{toNext(status)}}"
               rank="[[item.item.rank]]"
               on-click="{{on-click}}"
               on-track="{{on-track}}"
@@ -62,9 +48,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       'use strict';
 
       Polymer({
-        is: 'geek-panel'
-      });
+        is: 'geek-panel',
+        toTitle: function (status) {
+          switch (status) {
+            case 'to_do':
+              return 'To do';
+            case 'in_progress':
+              return 'In progress';
+            case 'done':
+              return 'Done';
+          }
+        },
+        toNext: function (status) {
+          switch (status) {
+            case 'to_do':
+              return 'in_progress';
+            case 'in_progress':
+              return 'done';
+            case 'done':
+              return 'hide';
+          }
+        },
 
+        addItem: function(card){
+          this.$.panel.appendChild(card);
+        },
+        removeItem: function(card){
+          this.$.panel.removeChild(card);
+        },
+
+
+      });
     })();
   </script>
 

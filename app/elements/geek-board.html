@@ -19,27 +19,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template>
 
     <paper-material elevation="1" class="horizontal layout">
+      <template is="dom-repeat" items="[[boards]]">
+        <geek-panel
+          id="{{item}}"
+          src="{{src}}"
+          status="{{item}}"
+          on-click="transfer"
+          on-track="handleTrack">
 
-      <geek-panel
-        title="To do"
-        src="{{src}}"
-        status="to_do"
-        on-click="transfer"
-        on-track="handleTrack"
-        next_status="in_progress">
-
-      </geek-panel>
-      <geek-panel
-        title="In progress"
-        src="{{src}}"
-        status="in_progress"
-        on-click="transfer"
-        on-track="handleTrack"
-        next_status="done">
-
-      </geek-panel>
-      <geek-panel title="Done"
-                  src="{{src}}" status="done" on-click="transfer" next_status="hide"></geek-panel>
+        </geek-panel>
+      </template>
     </paper-material>
     <iron-ajax
       id="request"
@@ -51,41 +40,50 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 
   <script>
-    (function() {
+    (function () {
       'use strict';
 
       Polymer({
         is: 'geek-board',
 
-        transfer: function(e) {
+        transfer: function (e) {
           this.$.request.url = this.src + '/' + e.target.id;
           this.$.request.params = {status: e.target.textContent};
           //this.$.request.method="put";
           this.$.request.generateRequest();
-          var card = e.target.parentNode;
+          var card = e.target.parentNode.parentNode;
+          var nextPanel=document.querySelector('#'+e.target.textContent);
           card.parentNode.removeChild(card);
+          nextPanel.$.panel.appendChild(card)
         },
 
-        transfered: function() {
+        transfered: function () {
         },
 
-        handleTrack: function(e) {
-        switch (e.detail.state) {
-          case 'start':
-            this.message = 'Tracking started!';
-            break;
-          case 'track':
-            this.message = 'Tracking in progress... ' + e.detail.x + ', ' + e.detail.y;
-            e.target.style.transform = e.target.style.webkitTransform =
-              'translate(' + e.detail.x + 'px, ' + e.detail.y + 'px)';
-            break;
-          case 'end':
-            this.message = 'Tracking ended!';
-            //parent = e.detail.hover();
-            //parent.appendChild(e.target);
-            break;
+        handleTrack: function (e) {
+          switch (e.detail.state) {
+            case 'start':
+              this.message = 'Tracking started!';
+              break;
+            case 'track':
+              this.message = 'Tracking in progress... ' + e.detail.x + ', ' + e.detail.y;
+              e.target.style.transform = e.target.style.webkitTransform =
+                'translate(' + e.detail.x + 'px, ' + e.detail.y + 'px)';
+              break;
+            case 'end':
+              this.message = 'Tracking ended!';
+              //parent = e.detail.hover();
+              //parent.appendChild(e.target);
+              break;
+          }
+        },
+        properties: {
+          boards: {
+            type: Array,
+            value: ['to_do', 'in_progress', 'done'],
+            notify: true
+          }
         }
-      }
       });
     })();
   </script>
