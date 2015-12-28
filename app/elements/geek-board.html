@@ -17,16 +17,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <dom-module id="geek-board">
   <template>
+    <style is="custom-style">
+      .flex-horizontal-with-ratios {
+        @apply(--layout-horizontal);
+      }
+      .flexchild {
+        @apply(--layout-flex);
+      }
+      .flex2child {
+        @apply(--layout-flex-2);
+      }
+      .flex3child {
+        @apply(--layout-flex-3);
+      }
+    </style>
 
+    <div class="container flex-horizontal-with-ratios">
+      <div class="flexchild">one</div>
+      <div class="flexchild">two</div>
+      <div class="flexchild">three</div>
+    </div>
     <paper-material elevation="1" class="horizontal layout">
       <template is="dom-repeat" items="[[boards]]">
         <geek-panel
+          class="flexchild"
           id="{{item}}"
           src="{{src}}"
           status="{{item}}"
           on-click="transfer"
           on-track="handleTrack">
-
         </geek-panel>
       </template>
     </paper-material>
@@ -36,7 +55,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       handle-as="json"
       on-response="transfered">
     </iron-ajax>
-
   </template>
 
   <script>
@@ -45,16 +63,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       Polymer({
         is: 'geek-board',
-
+        statuses: ['hidden', 'to_do', 'in_progress', 'done', 'hide'],
         transfer: function(e) {
-          this.$.request.url = this.src + '/' + e.target.id;
-          this.$.request.params = {status: e.target.textContent};
+          var card = e.path.find(function(element) { return element.nodeName === 'GEEK-CARD'; });
+          var currentPanel = e.path.find(function(element) { return element.nodeName === 'GEEK-PANEL'; });
+          currentPanel.$.panel.removeChild(card);
+          var status = "hidden";
+          if(e.target.icon === 'arrow-forward' && currentPanel.nextElementSibling.classList.contains("geek-board")) {
+            currentPanel.nextElementSibling.$.panel.appendChild(card);
+            status = currentPanel.nextElementSibling.id;
+          }
+          if(e.target.icon === 'arrow-back' && currentPanel.previousElementSibling.classList.contains("geek-board")) {
+            currentPanel.previousElementSibling.$.panel.appendChild(card);
+            status = currentPanel.previousElementSibling.id;
+          }
+          this.$.request.url = this.src + '/' + card.id;
+          this.$.request.params = {status: status};
           //this.$.request.method="put";
           this.$.request.generateRequest();
-          var card = e.target.parentNode.parentNode;
-          var nextPanel = document.querySelector('#' + e.target.textContent);
-          card.parentNode.removeChild(card);
-          nextPanel.$.panel.appendChild(card);
+
         },
 
         transfered: function() {
@@ -77,6 +104,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               break;
           }
         },
+
         properties: {
           boards: {
             type: Array,

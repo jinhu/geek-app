@@ -19,8 +19,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template>
 
     <paper-material elevation="1"  class="flex-1" style="margin: 3px; padding: 3px">
-      <div id="panel" class="horizontal-section-container">
-        <span>{{toTitle(status)}}</span>
+        <paper-header-panel class="flex">
+          <paper-toolbar><span>{{toTitle(status)}}</span></paper-toolbar>
+          <div id="panel" class="horizontal-section-container">
+
           <iron-ajax auto
                      id="ajax"
                      url="{{src}}?status={{status}}"
@@ -35,14 +37,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            author="[[item.item.author]]"
               src="/image.png"
               points="[[item.item.points]]"
-              next_status="{{toNext(status)}}"
               rank="[[item.item.rank]]"
               on-click="{{on-click}}"
               on-track="{{on-track}}"
                 ></geek-card>
           </template>
       </div>
+        </paper-header-panel>
     </paper-material>
+
   </template>
 
   <script>
@@ -59,16 +62,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               return 'In progress';
             case 'done':
               return 'Done';
-          }
-        },
-        toNext: function(status) {
-          switch (status) {
-            case 'to_do':
-              return 'in_progress';
-            case 'in_progress':
-              return 'done';
-            case 'done':
-              return 'hide';
           }
         },
 
