@@ -40,27 +40,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 
   <script>
-    (function () {
+    (function() {
       'use strict';
 
       Polymer({
         is: 'geek-board',
 
-        transfer: function (e) {
+        transfer: function(e) {
           this.$.request.url = this.src + '/' + e.target.id;
           this.$.request.params = {status: e.target.textContent};
           //this.$.request.method="put";
           this.$.request.generateRequest();
           var card = e.target.parentNode.parentNode;
-          var nextPanel=document.querySelector('#'+e.target.textContent);
+          var nextPanel = document.querySelector('#' + e.target.textContent);
           card.parentNode.removeChild(card);
-          nextPanel.$.panel.appendChild(card)
+          nextPanel.$.panel.appendChild(card);
         },
 
-        transfered: function () {
+        transfered: function() {
         },
 
-        handleTrack: function (e) {
+        handleTrack: function(e) {
           switch (e.detail.state) {
             case 'start':
               this.message = 'Tracking started!';

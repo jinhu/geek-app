@@ -17,7 +17,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="geek-card.html">
 <dom-module id="geek-panel">
   <template>
-    <div class="flex-1" style="margin: 3px; padding: 3px">
+
+    <paper-material elevation="1"  class="flex-1" style="margin: 3px; padding: 3px">
       <div id="panel" class="horizontal-section-container">
         <span>{{toTitle(status)}}</span>
           <iron-ajax auto
@@ -28,10 +29,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           <template is="dom-repeat" items="[[items]]">
          <geek-card
-              title="[[item.item.title]]"
-              id="[[item.id]]"
-              author="[[item.item.author]]"
-              src="[[item.item.image_url]]"
+           title="[[item.item.title]]"
+           image="/image.png"
+           id="[[item.id]]"
+           author="[[item.item.author]]"
+              src="/image.png"
               points="[[item.item.points]]"
               next_status="{{toNext(status)}}"
               rank="[[item.item.rank]]"
@@ -40,7 +42,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 ></geek-card>
           </template>
       </div>
-    </div>
+    </paper-material>
   </template>
 
   <script>
@@ -49,7 +51,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       Polymer({
         is: 'geek-panel',
-        toTitle: function (status) {
+        toTitle: function(status) {
           switch (status) {
             case 'to_do':
               return 'To do';
@@ -59,7 +61,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               return 'Done';
           }
         },
-        toNext: function (status) {
+        toNext: function(status) {
           switch (status) {
             case 'to_do':
               return 'in_progress';
@@ -70,13 +72,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
         },
 
-        addItem: function(card){
+        addItem: function(card) {
           this.$.panel.appendChild(card);
         },
-        removeItem: function(card){
+        removeItem: function(card) {
           this.$.panel.removeChild(card);
         },
-
 
       });
     })();
