@@ -1,0 +1,46 @@
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>my-list-basic</title>
+
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <script src="../bower_components/web-component-tester/browser.js"></script>
+
+  <!-- Import the element to test -->
+  <link rel="import" href="../elements/geek-item.html">
+
+</head>
+<body>
+
+  <test-fixture id="basic">
+    <template>
+       <geek-item></geek-item>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('geek-item tests', function() {
+      var item;
+
+      setup(function() {
+        item = fixture('basic');
+      });
+
+      test('Item should correctly bind title', function(done) {
+        item.title = 'Mickey Mousecapade';
+
+        // Data bindings will stamp out new DOM asynchronously
+        // so wait to check for updates
+        flush(function() {
+//          title = item.querySelectorAll('#title');
+//          assert.equal(title, 'Mickey Mousecapade');
+//          done();
+        });
+      })
+    });
+  </script>
+
+</body>
+</html>

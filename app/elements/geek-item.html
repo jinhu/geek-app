@@ -1,0 +1,83 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../bower_components/paper-styles/demo-pages.html">
+<link rel="import" href="../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icons/hardware-icons.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/paper-styles/color.html">
+
+<dom-module id="geek-item">
+  <style>
+    #cards {
+      @apply(--layout-vertical);
+      @apply(--center-justified);
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    paper-card {
+      width: 100%;
+      margin-bottom: 16px;
+    }
+    .item {
+      --paper-card-header-color: white;
+      /*line-height: 64px;*/
+      /*font-size: 30px;*/
+      text-align: center;
+    }
+    .small {
+      --paper-card-header-color: white;
+      /*line-height: 64px;*/
+      font-size: 10px;
+      text-align: center;
+    }
+  </style>
+  <template>
+    <paper-card
+      heading="{{title}}"
+      image="{{src}}"
+      class="item"
+    >
+      <div id="title">{{title}}</div>
+      <div class="card-content">
+        <a href="{{link}}" target="_blank" >{{title}}</a><br/>
+        {{description}} bla bla Ut labores minimum atomorum pro. Laudem tibique ut has.
+        Usu eu novum principes, vel quodsi aliquip ea.
+      </div>
+
+        <div class="small">By: me the {{author}} <span class="flex"></span>At:1999</div>
+      </div>
+      <div class="card-actions">
+          <paper-icon-button icon="arrow-back" on-click="{{on-click}}" id="{{id}}"></paper-icon-button>
+        <span class="flex"></span>
+          <paper-icon-button icon="arrow-forward" on-click="{{on-click}}" id="{{id}}"></paper-icon-button>
+        </div>
+
+    </paper-card>
+  </template>
+  <script>
+    (function() {
+      'use strict';
+      Polymer({
+        is: 'geek-item'
+      });
+    })();
+  </script>
+
+</dom-module>
